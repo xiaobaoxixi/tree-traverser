@@ -2,14 +2,16 @@
 
 function getAllAttr(elem) {
   if (elem.attributes.length > 0) {
+    htmlString += `
+${indent.repeat(levelCount)}<${elem.tagName.toLowerCase()}`;
     for (let i = 0; i < elem.attributes.length; i++) {
       /////// element.attribute returns a map, not an array, can't use arr.forEach
       /////// console.log(typeof doc.attributes[i]); // returns object, can't get value with just index number, need to use key to acess value
-      htmlString += `
-${indent.repeat(levelCount)}<${elem.tagName.toLowerCase()} ${
-        elem.attributes[0].nodeName
-      }="${elem.attributes[0].nodeValue}">`;
+      htmlString += ` ${elem.attributes[i].nodeName}="${
+        elem.attributes[i].nodeValue
+      }"`;
     }
+    htmlString += `>`;
   } else {
     htmlString += `
 ${indent.repeat(levelCount)}<${elem.tagName.toLowerCase()}>`;
