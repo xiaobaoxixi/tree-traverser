@@ -26,10 +26,12 @@ function traverse(parent) {
     if (levelCount >= 1) {
       levelCount--;
     }
-    htmlString += `
+    if (!noClosingTagsArray.includes(`${parent.tagName.toLowerCase()}`))
+      htmlString += `
 ${indent.repeat(levelCount)}</${parent.tagName.toLowerCase()}>`;
   } else {
-    htmlString += `</${parent.tagName.toLowerCase()}>`;
+    if (!noClosingTagsArray.includes(`${parent.tagName.toLowerCase()}`))
+      htmlString += `</${parent.tagName.toLowerCase()}>`;
   }
 }
 
@@ -37,6 +39,24 @@ ${indent.repeat(levelCount)}</${parent.tagName.toLowerCase()}>`;
 let levelCount = 0;
 let indent = "  ";
 let htmlString = "";
+let noClosingTagsArray = [
+  "area",
+  "base",
+  "br",
+  "col",
+  "command",
+  "embed",
+  "hr",
+  "img",
+  "input",
+  "keygen",
+  "link",
+  "meta",
+  "param",
+  "source",
+  "track",
+  "wbr"
+];
 window.addEventListener("DOMContentLoaded", init);
 function init() {
   const baseHTML = document.documentElement;
