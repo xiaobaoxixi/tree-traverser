@@ -25,9 +25,11 @@ function traverse(parent) {
     }
     if (levelCount >= 1) {
       levelCount--;
-      htmlString += `
-${indent.repeat(levelCount)}</${parent.tagName.toLowerCase()}>`;
     }
+    htmlString += `
+${indent.repeat(levelCount)}</${parent.tagName.toLowerCase()}>`;
+  } else {
+    htmlString += `</${parent.tagName.toLowerCase()}>`;
   }
 }
 
