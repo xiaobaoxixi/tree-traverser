@@ -7,13 +7,13 @@ function getAllAttr(elem) {
       /////// element.attribute returns a map, not an array, can't use arr.forEach
       /////// console.log(typeof doc.attributes[i]); // returns object, can't get value with just index number, need to use key to acess value
       console.log(
-        `${elem.tagName.toLowerCase()}: ${elem.attributes[0].nodeName}="${
+        `<${elem.tagName.toLowerCase()} ${elem.attributes[0].nodeName}="${
           elem.attributes[0].nodeValue
-        }"`
+        }">`
       );
     }
   } else {
-    console.log(`${elem.tagName.toLowerCase()}`);
+    console.log(`<${elem.tagName.toLowerCase()}>`);
   }
 }
 
