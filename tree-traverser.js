@@ -1,8 +1,6 @@
 "use strict";
 
 // Version 1 just writes the name and attributes of each HTML-element. The output looks somewhat like this:
-let baseHTML = document.documentElement;
-
 function getAllAttr(elem) {
   if (elem.attributes.length > 0) {
     for (let i = 0; i < elem.attributes.length; i++) {
@@ -29,6 +27,11 @@ function traverse(parent) {
     }
   }
 }
-traverse(baseHTML);
+
+window.addEventListener("DOMContentLoaded", init);
+function init() {
+  const baseHTML = document.documentElement;
+  traverse(baseHTML);
+}
 
 // version 2
