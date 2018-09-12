@@ -20,12 +20,12 @@ ${indent.repeat(indentLevelCount)}<${elem.tagName.toLowerCase()}>`;
   }
 }
 
-function traverseNode(parent) {
+function traverse(parent) {
   getTag(parent);
   if (parent.children.length > 0) {
     indentLevelCount++;
     for (let i = 0; i < parent.children.length; i++) {
-      traverseNode(parent.children[i]);
+      traverse(parent.children[i]);
     }
     if (indentLevelCount >= 1) {
       indentLevelCount--;
@@ -64,6 +64,6 @@ let noClosingTagsArray = [
 const baseHTML = document.documentElement;
 window.addEventListener("DOMContentLoaded", init);
 function init() {
-  traverseNode(baseHTML);
+  traverse(baseHTML);
   console.log(htmlString);
 }
