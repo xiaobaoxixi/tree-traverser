@@ -1,9 +1,10 @@
 "use strict";
 
-function getAllAttr(elem) {
+function getTag(elem) {
   if (elem.attributes.length > 0) {
     htmlString += `
-${indent.repeat(levelCount)}<${elem.tagName.toLowerCase()}`;
+${indent.repeat(indentLevelCount)}<${elem.tagName.toLowerCase()}`;
+
     for (let i = 0; i < elem.attributes.length; i++) {
       /////// element.attribute returns a map, not an array, can't use arr.forEach
       /////// console.log(typeof doc.attributes[i]); // returns object, can't get value with just index number, need to use key to acess value
@@ -11,26 +12,27 @@ ${indent.repeat(levelCount)}<${elem.tagName.toLowerCase()}`;
         elem.attributes[i].nodeValue
       }"`;
     }
+
     htmlString += `>`;
   } else {
     htmlString += `
-${indent.repeat(levelCount)}<${elem.tagName.toLowerCase()}>`;
+${indent.repeat(indentLevelCount)}<${elem.tagName.toLowerCase()}>`;
   }
 }
 
-function traverse(parent) {
-  getAllAttr(parent);
+function traverseNode(parent) {
+  getTag(parent);
   if (parent.children.length > 0) {
-    levelCount++;
+    indentLevelCount++;
     for (let i = 0; i < parent.children.length; i++) {
-      traverse(parent.children[i]);
+      traverseNode(parent.children[i]);
     }
-    if (levelCount >= 1) {
-      levelCount--;
+    if (indentLevelCount >= 1) {
+      indentLevelCount--;
     }
     if (!noClosingTagsArray.includes(`${parent.tagName.toLowerCase()}`))
       htmlString += `
-${indent.repeat(levelCount)}</${parent.tagName.toLowerCase()}>`;
+${indent.repeat(indentLevelCount)}</${parent.tagName.toLowerCase()}>`;
   } else {
     if (!noClosingTagsArray.includes(`${parent.tagName.toLowerCase()}`))
       htmlString += `</${parent.tagName.toLowerCase()}>`;
@@ -38,7 +40,7 @@ ${indent.repeat(levelCount)}</${parent.tagName.toLowerCase()}>`;
 }
 
 // starts from here
-let levelCount = 0;
+let indentLevelCount = 0;
 let indent = "  ";
 let htmlString = "";
 let noClosingTagsArray = [
@@ -59,9 +61,9 @@ let noClosingTagsArray = [
   "track",
   "wbr"
 ];
+const baseHTML = document.documentElement;
 window.addEventListener("DOMContentLoaded", init);
 function init() {
-  const baseHTML = document.documentElement;
-  traverse(baseHTML);
+  traverseNode(baseHTML);
   console.log(htmlString);
 }
