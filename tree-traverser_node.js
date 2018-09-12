@@ -91,7 +91,7 @@ function reorder() {
         i > fromIndex
       ) {
         // the to-be-filled texts all have [0,0,*]
-        textPieceArray.splice(g + 1, 0, textPieceArray[i][0]); // insert the gap text to place
+        textPieceArray.splice(g + 1, 0, ["", textPieceArray[i][0], "", "", ""]); // insert the gap text to place
         textPieceArray[i + 1][4] = true;
         //textPieceArray.splice(i + 1, 1); // remove the just moved
         fillCount++;
@@ -101,6 +101,11 @@ function reorder() {
     }
   }
   console.table(textPieceArray);
+  console.table(
+    textPieceArray.filter(item => {
+      if (item[4] !== true) return true;
+    })
+  );
 }
 
 // starts from here
