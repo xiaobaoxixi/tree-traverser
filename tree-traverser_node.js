@@ -28,7 +28,7 @@ function getTag(elem) {
         console.log(`${textPiece}`);
         htmlString += `${textPiece}`;
 
-        let textPieceData = [textPiece, textLevel, ii, gapCount];
+        let textPieceData = [textPiece, textLevel, ii, gapCount, ""];
 
         textPieceArray.push(textPieceData);
         // check if gap count increase
@@ -92,6 +92,7 @@ function reorder() {
       ) {
         // the to-be-filled texts all have [0,0,*]
         textPieceArray.splice(g + 1, 0, textPieceArray[i][0]); // insert the gap text to place
+        textPieceArray[i + 1][4] = true;
         //textPieceArray.splice(i + 1, 1); // remove the just moved
         fillCount++;
         fromIndex = i + 1;
