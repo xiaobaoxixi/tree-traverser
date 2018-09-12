@@ -3,8 +3,7 @@
 function getTag(elem) {
   //  console.log(elem);
   if (elem.childNodes[0]) {
-    textLevel++;
-    gapCount = 0;
+    textLevel = 0;
     for (let ii = 0; ii < elem.childNodes.length; ii = ii + 2) {
       if (elem.childNodes[ii].nodeValue.replace(/\s+/g, "").length > 0) {
         // has sub-text
@@ -15,8 +14,9 @@ function getTag(elem) {
         if (
           elem.childNodes[ii].nodeValue[
             elem.childNodes[ii].nodeValue.length - 1
-          ] === " "
+          ] === " " // the case of a new line doesn't mean a gap, need to exclude this case
         ) {
+          textLevel++;
           gapCount++;
         }
         console.log(
@@ -68,7 +68,7 @@ function traverseNode(parent) {
 // starts from here
 let indentLevelCount = 0;
 let indent = "  ";
-let gapCount;
+let gapCount = 0;
 let textLevel = 0;
 let htmlString = "";
 let noClosingTagsArray = [
