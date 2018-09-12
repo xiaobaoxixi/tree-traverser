@@ -4,13 +4,14 @@ function getTag(elem) {
   //  console.log(elem);
   if (elem.childNodes[0]) {
     textLevel = 0;
+    console.log("<" + elem.localName + ">");
+
     for (let ii = 0; ii < elem.childNodes.length; ii = ii + 2) {
       if (elem.childNodes[ii].nodeValue.replace(/\s+/g, "").length > 0) {
         // has sub-text
         let textPiece = elem.childNodes[ii].nodeValue
           .replace(/\s+/g, " ")
           .trim();
-        //        console.log(elem.childNodes[ii].nodeValue + "/");
         if (
           elem.childNodes[ii].nodeValue[
             elem.childNodes[ii].nodeValue.length - 1
@@ -20,8 +21,8 @@ function getTag(elem) {
           gapCount++;
         }
         console.log(
-          `${textPiece} (text index: ${textLevel} ${ii}) 
-gap count: ${gapCount}`
+          `${textPiece}
+(index: ${textLevel} ${ii} gap count: ${gapCount})`
         );
       }
     }
@@ -63,6 +64,7 @@ function traverseNode(parent) {
     //       htmlString += `</${parent.tagName.toLowerCase()}>`;
     //   }
   }
+  console.log(`</${parent.localName}>`);
 }
 
 // starts from here
