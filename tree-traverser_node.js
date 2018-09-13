@@ -1,6 +1,6 @@
 "use strict";
 
-function getTag(elem) {
+function getData(elem) {
   if (elem.childNodes[0]) {
     textLevel = 0;
     //    console.log("<" + elem.localName + ">");
@@ -45,7 +45,7 @@ ${indent.repeat(indentLevelCount)}<${elem.localName}>`;
 }
 
 function traverseNode(parent) {
-  getTag(parent);
+  getData(parent);
   if (parent.childNodes.length > 1) {
     indentLevelCount++;
     for (let i = 1; i < parent.childNodes.length; i = i + 2) {
